@@ -1,12 +1,13 @@
 stack = []
-prioritycd ../
+priority = player
 
 Board State
+hasPriority
 lifeTotal = 40
 playerHand
 library = [card1, card2, card3, card4, ...]
 graveyyard = []
-exile = []
+exiled = []
 battlefield = [card1, card2, card3, card4, ...]
 or
 battlefield = {
@@ -37,7 +38,14 @@ manaPool = {
     C: 0
 }
 
-Things
+DESTINATIONS
+battlefield
+library
+graveyard
+playerHand
+exiled
+
+THINGS
 counter = {
     type: "",
     numCounters
@@ -53,9 +61,10 @@ player = {
 }
 
 Actions
-draw = () => {
-    card = library.pop()
-    playerHand + card
+draw = (x) => {
+    for each i in x:
+        card = library.pop()
+        playerHand + card
 }
 discard = (...cards) => {
     for each card in cards
@@ -96,6 +105,33 @@ goad = (...cards) => {
     for each card in cards:
     card.owner.attackers + card
 }
+gain control = {}
+    [target player] control(s) [target card]
+deals damage = {}
+put a ____ counter on ____
+block
+attack
+fight
+enchant
+[target] becomes [new attributes]
+counter [target]
+cast
+put [target] [in/on top/on the bottom of] [destination]
+gets [keyword, counter]
+create
+tap = (target) => {
+    target.isTapped = true
+}
+untap = (target) => {
+    target.isTapped = false
+}
+look at [opt. each] [opt. top/bottom of] [library/your opponents lbrary/your opponents hand]
+return [target] to [destination]
+search
+become the monarch = (player) => {
+    player.isMonarch = true
+}
+
 
 Keywords
 tapped
@@ -118,3 +154,73 @@ permanent
 vigilance
 land
 spell
+can't [action]
+    be blocked
+    activate
+    cast
+    search library
+    attack
+ward
+alternative costs
+kicked
+Monarch
+Defender
+
+WHEN (events)/ WHENEVER
+    ***format: when [condition is met], [action]
+[when/whenever] [card] enters the battlefield [action]
+[when/whenever] [card] leaves the battlefield [action]
+[when/whenever] [creature] deals combat damage [action]
+[when/whenever] [player] is dealt combat damage [action]
+[when/whenever] [target] deals damage [action]
+[when/whenever] [target] is dealt damage [action]
+[when/whenever] [creature] attacks [action]
+[when/whenever] [creature] dies [action]
+[when/whenever] [player] casts [spell]
+[when/whenever] [target] sacrifice(s) [target card] [action]
+
+
+PHASE TRIGGER
+at the beginning of combat [action]
+at the begginning of [your/each/your opponent's] [opt. next/this] [phase]
+at [your/your opponent's/each] [opt. next/this] [phase] [action]
+at the end of [your/your opponent's/each] turn
+
+ACTIVATED ABILITIES (ones that have specific names)
+kick
+
+Python = switch cases
+JS = object literals
+
+PHRASES
+if you do
+you may [action]
+look at the top # cards of your library
+put # of [target cards] into [destination]
+puts [target] it on the top or bottom of their library
+you create # of [type] tokens with [keyword(s)]
+[target] gets [keyword, counter]
+[target] has [keyword, counter] as long as
+activate only [condition]
+if [condition]
+[target] doesn't untap during it's controllers untap step
+[target] can block only creatures with [keyword/attribute]
+[target] power is equal to number of [targets]
+As an additional cost to cast this spell, [action]
+If this spell was cast from [destination], [action]
+[action] unless _____
+    counter target spell unless its controller pasy 4
+has [attribute]
+    has base power __/__
+As long as [condition]
+    you control ____
+may
+up to # [targets]
+    up to two targets each get +0/+3
+each
+    deal 3 damage to each creature without flying
+    up to two targets each get +0/+3
+where x is # of targets that [condition]
+then
+costs # [less/more] [opt. if [condition]]
+until [phase], [action]

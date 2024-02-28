@@ -1,0 +1,120 @@
+stack = []
+prioritycd ../
+
+Board State
+lifeTotal = 40
+playerHand
+library = [card1, card2, card3, card4, ...]
+graveyyard = []
+exile = []
+battlefield = [card1, card2, card3, card4, ...]
+or
+battlefield = {
+    "creatures": [],
+    "artifacts": [],
+    "enchantments": []
+}
+or
+view = [] (for scrying or viewing any part of the board state without adding to anything else)
+phase = [beginning phase || main phase || combat || second main phase || end]
+    Each phase is an object/array with its on steps
+attackers = [attack1, attack2, attack3, attack4, ...]
+attack = {
+    attacker: card,
+    attacking: player
+}
+defenders = [defense1, defense2, defense3, defense4, ...]
+defense = {
+    defender: card,
+    against: attack
+}
+manaPool = {
+    R: 0,
+    G: 0,
+    U: 0,
+    B: 0,
+    W: 0,
+    C: 0
+}
+
+Things
+counter = {
+    type: "",
+    numCounters
+}
+card = {
+    ...all basic info from scryfall database,
+    counters: [counter1, counter2, counter3],
+    enchantments: [],
+    owner: player
+}
+player = {
+    everything from the board state
+}
+
+Actions
+draw = () => {
+    card = library.pop()
+    playerHand + card
+}
+discard = (...cards) => {
+    for each card in cards
+        playerhand - card
+        graveyard + card
+}
+scry = (x) => {
+    for i in range x
+        view += library[i]
+}
+shuffle = () => {
+    randomize library
+}
+proliferate = (...counters) => {
+    for each counter in counters:
+        counter.numCounter ++
+}
+sacrifice = (...cards) => {
+    for each card in cards:
+        battlefield - card
+        graveyard + card
+}
+exile = (...cards) => {
+    for each card in cards:
+        battlefield - card
+        exile + card
+}
+enchant = (...cards) => {
+    for each card in cards:
+        card.enchantments + card
+}
+destroy = (...cards) => {
+    for each card in cards:
+        battlefield - card
+        graveyard + card
+}
+goad = (...cards) => {
+    for each card in cards:
+    card.owner.attackers + card
+}
+
+Keywords
+tapped
+death touch
+double strike
+first strike
+flying
+haste
+lifelink
+reach
+trample
+defender
+flash
+haste
+hexproof
+indestructible
+legendary
+menace
+permanent
+vigilance
+land
+spell
